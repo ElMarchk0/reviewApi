@@ -7,7 +7,7 @@ const app = express()
 const PORT = 4000
 
 //database
-const uri = "mongodb+srv://emarchk0:97forthewin@cluster0.hl0jb.mongodb.net/beer_reviews?retryWrites=true&w=majority"
+const uri = process.env.MONGO_URI
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
