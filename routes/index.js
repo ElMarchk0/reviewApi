@@ -1,32 +1,52 @@
-const express = require('express')
+//Old dependencies
+// const express = require('express')
+// const router = express.Router()
+// const Review = require('../models/Schema')
+
+
+//new dependencies
+
+import express from "express"
+import ReviewController from '../controllers/controller.js'
+
 const router = express.Router()
-const Review = require('../models/Schema')
 
-router.get('/', async (req, res) => {
-  const reviews = await Review.find()
+//Alternate code
+router.route('/').get(ReviewController.getReviews)
 
-  res.json(reviews)
-})
+router
+    .route('/reviews/:id')
+    .post(ReviewController.postReview)
+    .delete(ReviewController.deleteReview)
 
-router.post('/new-review', async (req, res) => {
-  const newReview = new Review(req.body)
+export default router
 
-  const savedReview = await newReview.save()
 
-  res.json(savedReview)
-  console.log(savedReview)
-})
+// router.get('/', async (req, res) => {
+//   const reviews = await Review.find()
 
-router.get('/get/:id', async (req, res) => {
-  const r = await Review.findById({ _id: req.params.id })
+//   res.json(reviews)
+// })
 
-  res.json(r)
-})
+// router.post('/new-review', async (req, res) => {
+//   const newReview = new Review(req.body)
 
-router.delete('/delete/:id', async (req, res) => {
-  const deleteReview = await Review.findByIdAndDelete({_id: req.params.id})
+//   const savedReview = await newReview.save()
 
-  res.json(deleteReview)
-})
+//   res.json(savedReview)
+//   console.log(savedReview)
+// })
 
-module.exports = router
+// router.get('/get/:id', async (req, res) => {
+//   const r = await Review.findById({ _id: req.params.id })
+
+//   res.json(r)
+// })
+
+// router.delete('/delete/:id', async (req, res) => {
+//   const deleteReview = await Review.findByIdAndDelete({_id: req.params.id})
+
+//   res.json(deleteReview)
+// })
+
+// module.exports = router
